@@ -137,9 +137,14 @@
     }
     .catalog-card:hover { border-color: var(--blue-200); box-shadow: 0 8px 24px rgba(37,99,235,.08); transform: translateY(-2px); }
     .catalog-img {
-      height: 160px; background: linear-gradient(135deg, var(--blue-50), var(--sky-100));
+      height: 180px; background: linear-gradient(135deg, var(--blue-50), var(--sky-100));
       display: flex; align-items: center; justify-content: center; font-size: 3rem;
+      overflow: hidden;
     }
+    .catalog-img img {
+      width: 100%; height: 100%; object-fit: cover; transition: transform .3s;
+    }
+    .catalog-card:hover .catalog-img img { transform: scale(1.05); }
     .catalog-body { padding: 20px; }
     .catalog-cat {
       font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
@@ -300,25 +305,25 @@
           <div class="catalog-cat">Limpieza</div>
           <h3>Desinfectantes y Limpiadores</h3>
           <p>Lavandina, desinfectante de pisos, limpiadores multiuso de calidad profesional.</p>
-          <span class="catalog-price">Desde $3.500</span> <span class="catalog-unit">/ unidad</span>
+          <span class="catalog-price">Desde $2.000</span> <span class="catalog-unit">/ bidón</span>
         </div>
       </div>
       <div class="catalog-card fade-up">
-        <div class="catalog-img">🪣</div>
+        <div class="catalog-img">🗑️</div>
+        <div class="catalog-body">
+          <div class="catalog-cat">Bolsas</div>
+          <h3>Bolsas de Residuos</h3>
+          <p>Residuos y compactación, todos los tamaños. Resistentes y económicas.</p>
+          <span class="catalog-price">Desde $1.500</span> <span class="catalog-unit">/ pack</span>
+        </div>
+      </div>
+      <div class="catalog-card fade-up">
+        <div class="catalog-img">🧹</div>
         <div class="catalog-body">
           <div class="catalog-cat">Accesorios</div>
           <h3>Escobas, Secadores y Más</h3>
-          <p>Bolsas de residuos, escobas, secadores, guantes y todo lo que necesitás.</p>
-          <span class="catalog-price">Desde $4.000</span> <span class="catalog-unit">/ unidad</span>
-        </div>
-      </div>
-      <div class="catalog-card fade-up">
-        <div class="catalog-img">✨</div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Perfumería</div>
-          <h3>Jabones y Perfumería</h3>
-          <p>Jabón líquido, jabón en pan, alcohol en gel. Higiene y cuidado personal.</p>
-          <span class="catalog-price">Desde $2.500</span> <span class="catalog-unit">/ unidad</span>
+          <p>Escobillones, secadores, guantes, paños, rejillas y todo lo que necesitás.</p>
+          <span class="catalog-price">Desde $1.400</span> <span class="catalog-unit">/ unidad</span>
         </div>
       </div>
       <div class="catalog-card fade-up">
