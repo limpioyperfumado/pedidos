@@ -44,6 +44,7 @@
       --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { overflow-x: hidden; max-width: 100vw; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--gray-50);
@@ -158,10 +159,17 @@
     /* ── PRODUCTS ── */
     .prod-list { padding: 0 16px 16px; }
     .prod-item {
-      display: flex; align-items: center; gap: 12px; padding: 14px 0;
+      padding: 14px 0;
       border-bottom: 1px solid var(--gray-100);
     }
     .prod-item:last-child { border-bottom: none; }
+    .prod-row-top { display: flex; align-items: center; gap: 12px; }
+    .prod-row-bottom { display: flex; align-items: center; gap: 12px; margin-top: 8px; justify-content: flex-end; }
+    @media (min-width: 481px) {
+      .prod-item { display: flex; align-items: center; gap: 12px; }
+      .prod-row-top { flex: 1; min-width: 0; }
+      .prod-row-bottom { margin-top: 0; flex-shrink: 0; }
+    }
     .prod-emoji {
       width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
       font-size: 1.4rem; background: var(--blue-50); flex-shrink: 0; border: 1px solid var(--gray-100);
@@ -351,6 +359,115 @@
     .fecha-ok { color: var(--green-600); font-size: .78rem; margin-top: 4px; }
     .fecha-warn { color: var(--orange-500); font-size: .78rem; margin-top: 4px; }
     .fecha-err { color: var(--red-500); font-size: .78rem; margin-top: 4px; }
+
+    /* ── MOBILE RESPONSIVE ── */
+    @media (max-width: 767px) {
+      .card { max-width: 100%; overflow: visible; }
+      .content-grid > div > .card,
+      .content-grid > div > div > .card { max-width: calc(100vw - 20px); }
+    }
+    @media (max-width: 480px) {
+      /* Product items mobile */
+      .prod-item { padding: 10px 0; }
+      .prod-row-top { gap: 10px; }
+      .prod-img { width: 44px; height: 44px; border-radius: 8px; }
+      .prod-emoji { width: 44px; height: 44px; font-size: 1.2rem; border-radius: 8px; }
+      .prod-name { font-size: .8rem; }
+      .prod-row-bottom { margin-top: 6px; padding-left: 54px; justify-content: space-between; }
+      .prod-price { font-size: .85rem; margin-right: 0; }
+
+      /* Qty buttons slightly smaller */
+      .qty-btn { width: 32px; height: 32px; font-size: .95rem; }
+      .qty-val { width: 28px; font-size: .8rem; }
+
+      /* Sin stock badge */
+      .prod-item.sin-stock::after { font-size: .55rem; padding: 2px 6px; right: 4px; }
+
+      /* Header compact */
+      .header { padding: 10px 14px; }
+      .logo-icon { width: 32px; height: 32px; font-size: 16px; }
+      .logo-text { font-size: .78rem; }
+      .logo-text span { font-size: .62rem; }
+      .header-btn { padding: 6px 10px; font-size: .7rem; }
+
+      /* Steps compact */
+      .steps { padding: 8px 12px; }
+      .step-dot { width: 24px; height: 24px; font-size: .6rem; }
+      .step-text { font-size: .58rem; }
+
+      /* Cards */
+      .card-body { padding: 14px; }
+      .card-header { padding: 12px 14px; }
+      .card-title { font-size: .82rem; }
+      .card-header-icon { width: 28px; height: 28px; font-size: .8rem; }
+
+      /* Form */
+      .form-label { font-size: .68rem; }
+      .form-input, .form-select, .form-textarea { font-size: .85rem; padding: 10px 12px; }
+
+      /* Buttons */
+      .btn { padding: 10px 18px; font-size: .82rem; }
+      .btn-whatsapp { padding: 12px 18px; font-size: .88rem; }
+      .btn-sm { padding: 7px 12px; font-size: .75rem; }
+
+      /* Search */
+      .search-box { margin: 8px 12px 4px; padding: 8px 12px; }
+      .search-input { font-size: .82rem; }
+
+      /* Category tabs */
+      .cat-tabs { padding: 8px 12px; gap: 4px; }
+      .cat-tab { padding: 6px 10px; font-size: .72rem; }
+
+      /* Product list */
+      .prod-list { padding: 0 12px 12px; }
+
+      /* Summary */
+      .summary-table { font-size: .75rem; }
+      .summary-table th { font-size: .65rem; }
+      .summary-block { padding: 10px 12px; }
+      .summary-value { font-size: .8rem; }
+      .summary-sub { font-size: .72rem; }
+
+      /* Cart */
+      .cart-item { font-size: .78rem; }
+      .cart-total-value { font-size: 1rem; }
+
+      /* Confirm view */
+      .confirm-card { padding: 24px 16px; }
+      .confirm-icon { font-size: 2.8rem; }
+      .confirm-title { font-size: 1.1rem; }
+      .confirm-sub { font-size: .8rem; }
+      .confirm-id { font-size: .82rem; padding: 6px 12px; }
+
+      /* Stars */
+      .star { font-size: 1.6rem; }
+      .rating-title { font-size: .78rem; }
+
+      /* Admin panel */
+      .metric-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .metric-val { font-size: 1.3rem; }
+      .metric-label { font-size: .6rem; }
+
+      /* Admin order cards */
+      .order-card { padding: 12px; font-size: .8rem; }
+
+      /* Info banner */
+      .info-banner { font-size: .75rem; padding: 10px 12px; }
+
+      /* Main container */
+      .main { padding: 10px; }
+
+    }
+
+    /* Extra small screens (iPhone SE, etc) */
+    @media (max-width: 360px) {
+      .prod-item .prod-price { margin-left: 48px; }
+      .prod-img { width: 38px; height: 38px; }
+      .prod-emoji { width: 38px; height: 38px; font-size: 1rem; }
+      .header-inner { gap: 4px; }
+      .logo-text { font-size: .72rem; }
+      .step-text { font-size: .52rem; }
+    }
 
     /* ── PRINT ── */
     @media print {
@@ -800,17 +917,21 @@ function renderProds() {
     const noStock = sinStock.includes(p.id);
     return `
     <div class="prod-item${noStock?' sin-stock':''}">
-      ${p.img ? `<img class="prod-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-      <div class="prod-emoji" style="display:none;">${CAT_EMOJI[p.cat]||'📦'}</div>` : `<div class="prod-emoji">${CAT_EMOJI[p.cat]||'📦'}</div>`}
-      <div class="prod-details">
-        <div class="prod-name">${p.nombre}</div>
-        <div class="prod-sub">por ${p.unidad}</div>
+      <div class="prod-row-top">
+        ${p.img ? `<img class="prod-img" src="${p.img}" alt="${p.nombre}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="prod-emoji" style="display:none;">${CAT_EMOJI[p.cat]||'📦'}</div>` : `<div class="prod-emoji">${CAT_EMOJI[p.cat]||'📦'}</div>`}
+        <div class="prod-details">
+          <div class="prod-name">${p.nombre}</div>
+          <div class="prod-sub">por ${p.unidad}</div>
+        </div>
       </div>
-      <div class="prod-price">$${fmt(p.precio)}</div>
-      <div class="qty-control${(cant[p.id]||0)>0?' has-qty':''}">
-        <button class="qty-btn" onclick="chg(${p.id},-1)">−</button>
-        <input class="qty-val" type="number" id="q${p.id}" value="${cant[p.id]||0}" min="0" onchange="setQ(${p.id},this.value)" oninput="setQ(${p.id},this.value)">
-        <button class="qty-btn" onclick="chg(${p.id},1)">+</button>
+      <div class="prod-row-bottom">
+        <div class="prod-price">$${fmt(p.precio)}</div>
+        <div class="qty-control${(cant[p.id]||0)>0?' has-qty':''}">
+          <button class="qty-btn" onclick="chg(${p.id},-1)">−</button>
+          <input class="qty-val" type="number" id="q${p.id}" value="${cant[p.id]||0}" min="0" onchange="setQ(${p.id},this.value)" oninput="setQ(${p.id},this.value)">
+          <button class="qty-btn" onclick="chg(${p.id},1)">+</button>
+        </div>
       </div>
     </div>`;
   }).join('') : '<div style="text-align:center;padding:24px;color:var(--gray-400);font-size:.85rem;">No se encontraron productos</div>';
