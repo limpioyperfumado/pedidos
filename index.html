@@ -223,28 +223,28 @@
 
     /* ── WAREHOUSE SHOWCASE ── */
     .showcase {
-      position: relative; overflow: hidden;
-      height: 550px;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 500px; padding: 60px 20px;
       background: url('img/hero-warehouse.jpg') center/cover no-repeat;
     }
     .showcase-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(180deg,
-        rgba(10,22,40,.35) 0%,
-        rgba(10,22,40,.15) 40%,
-        rgba(10,22,40,.35) 70%,
-        rgba(10,22,40,.6) 100%
+        rgba(10,22,40,.4) 0%,
+        rgba(10,22,40,.25) 40%,
+        rgba(10,22,40,.4) 70%,
+        rgba(10,22,40,.65) 100%
       );
     }
     /* Features floating card on showcase */
     .showcase-card {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      z-index: 3;
+      position: relative; z-index: 3;
       background: rgba(255,255,255,.95); backdrop-filter: blur(12px);
       border-radius: var(--radius-xl);
       padding: 44px 52px; text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,.2), 0 1px 3px rgba(0,0,0,.08);
-      max-width: 620px; width: calc(100% - 40px);
+      max-width: 620px; width: 100%;
     }
     .showcase-card .section-tag {
       display: inline-flex; align-items: center; gap: 6px;
@@ -492,7 +492,7 @@
       .features-grid { grid-template-columns: repeat(2, 1fr); }
       .catalog-grid { grid-template-columns: repeat(2, 1fr); }
       .test-grid { grid-template-columns: 1fr; }
-      .showcase { height: 450px; }
+      .showcase { min-height: 400px; }
       .showcase-card { padding: 28px 32px; }
     }
     @media (max-width: 600px) {
@@ -504,9 +504,9 @@
       .features-grid { grid-template-columns: 1fr; }
       .catalog-grid { grid-template-columns: 1fr; }
       .features { padding: 90px 20px 60px; }
-      .showcase { height: 380px; }
+      .showcase { min-height: 320px; padding: 40px 16px; }
       .showcase-card { padding: 24px 20px; }
-      .showcase-card h2 { font-size: 1.3rem; }
+      .showcase-card h2 { font-size: 1.2rem; }
       .footer-top { justify-content: center; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
       .footer-bottom { justify-content: center; text-align: center; }
