@@ -599,61 +599,8 @@
       <div class="section-title">Productos destacados</div>
       <div class="section-sub">Desde papeles tissue hasta desinfectantes, encontrá todo para mantener tus espacios impecables.</div>
     </div>
-    <div class="catalog-grid">
-      <div class="catalog-card fade-up">
-        <div class="catalog-img"><img src="img/toallas-caja-real.jpg" alt="Toallas Intercaladas" loading="lazy"></div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Papel</div>
-          <h3>Toallas Intercaladas</h3>
-          <p>Blancas y beige, calidad premium. Ideales para dispensadores.</p>
-          <span class="catalog-price">Desde $16.500</span> <span class="catalog-unit">/ caja</span>
-        </div>
-      </div>
-      <div class="catalog-card fade-up">
-        <div class="catalog-img"><img src="img/multimax-limpiador.png" alt="Limpiadores profesionales" loading="lazy"></div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Limpieza</div>
-          <h3>Desinfectantes y Limpiadores</h3>
-          <p>Lavandina, desinfectante de pisos, limpiadores multiuso de calidad profesional.</p>
-          <span class="catalog-price">Desde $2.000</span> <span class="catalog-unit">/ bidón</span>
-        </div>
-      </div>
-      <div class="catalog-card fade-up">
-        <div class="catalog-img"><img src="img/bolsa-residuos.png" alt="Bolsas de residuos" loading="lazy"></div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Bolsas</div>
-          <h3>Bolsas de Residuos</h3>
-          <p>Residuos y compactación, todos los tamaños. Resistentes y económicas.</p>
-          <span class="catalog-price">Desde $1.500</span> <span class="catalog-unit">/ pack</span>
-        </div>
-      </div>
-      <div class="catalog-card fade-up">
-        <div class="catalog-img"><img src="img/secador-negro.png" alt="Secadores y accesorios" loading="lazy"></div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Accesorios</div>
-          <h3>Escobas, Secadores y Más</h3>
-          <p>Escobillones, secadores, guantes, paños, rejillas y todo lo que necesitás.</p>
-          <span class="catalog-price">Desde $1.400</span> <span class="catalog-unit">/ unidad</span>
-        </div>
-      </div>
-      <div class="catalog-card fade-up">
-        <div class="catalog-img"><img src="img/higienico-rollos.png" alt="Papel Higiénico" loading="lazy"></div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Papel</div>
-          <h3>Papel Higiénico Institucional</h3>
-          <p>Rollos de 300M, packs de 8 unidades. Rendimiento superior para grandes espacios.</p>
-          <span class="catalog-price">Desde $14.500</span> <span class="catalog-unit">/ pack</span>
-        </div>
-      </div>
-      <div class="catalog-card fade-up">
-        <div class="catalog-img"><img src="img/esponja.png" alt="Esponjas" loading="lazy"></div>
-        <div class="catalog-body">
-          <div class="catalog-cat">Accesorios</div>
-          <h3>Esponjas y Fibras</h3>
-          <p>Esponjas de alta calidad para cocina, limpieza general y uso industrial.</p>
-          <span class="catalog-price">Desde $1.500</span> <span class="catalog-unit">/ unidad</span>
-        </div>
-      </div>
+    <div class="catalog-grid" id="catalogGrid">
+      <!-- Se genera dinámicamente desde el mismo localStorage que usa el admin -->
     </div>
     <div style="text-align:center; margin-top:48px;">
       <a href="pedidos.html" class="btn-hero primary" style="font-size:.92rem;"><i class="bi bi-bag-check"></i> Ver todos los productos y pedir</a>
@@ -735,6 +682,100 @@
 </footer>
 
 <script>
+// ══ CATÁLOGO DINÁMICO — lee del mismo localStorage que el admin de pedidos.html ══
+(function buildCatalog() {
+  const PRODUCTOS_BASE = [
+    { id:1,  cat:"PAPEL",       nombre:"Caja Toallas Intercaladas Blancas", precio:18000, unidad:"caja",   img:"img/toallas-caja-real.jpg" },
+    { id:2,  cat:"PAPEL",       nombre:"Caja Toallas Intercaladas Beige",   precio:16500, unidad:"caja",   img:"img/toallas-caja-real.jpg" },
+    { id:3,  cat:"PAPEL",       nombre:"Papel Higiénico 300M x 8U",         precio:14500, unidad:"pack",   img:"img/higienico-rollos.png" },
+    { id:4,  cat:"PAPEL",       nombre:"Toalla Rollo 4x200M Blanca Cal A",  precio:16500, unidad:"unidad", img:"img/rollo-toalla.png" },
+    { id:9,  cat:"PAPEL",       nombre:"Toalla Rollo 4x200M Blanca Cal B",  precio:16500, unidad:"unidad", img:"img/rollo-toalla.png" },
+    { id:11, cat:"PAPEL",       nombre:"Rollo Servilletas 4x200M Blanca",   precio:16000, unidad:"unidad", img:"img/servilletas-rollo.png" },
+    { id:5,  cat:"PAPEL",       nombre:"Bolsón Papel Higiénico 50m x 24U",  precio:15500, unidad:"bolsón", img:"img/higienico-rollos.png" },
+    { id:6,  cat:"BOLSAS",      nombre:"Bolsa Residuo 45x60x30 (x30 u)",    precio:1500,  unidad:"pack",   img:"img/bolsa-residuos.png" },
+    { id:7,  cat:"BOLSAS",      nombre:"Bolsa Compact. 60x90 (x10 u)",      precio:2000,  unidad:"pack",   img:"img/bolsa-residuos.png" },
+    { id:8,  cat:"BOLSAS",      nombre:"Bolsa Compact. 90x110 (x10 u)",     precio:2500,  unidad:"pack",   img:"img/bolsa-residuos.png" },
+    { id:12, cat:"ACCESORIOS",  nombre:"Rejillas Doble",                     precio:1500,  unidad:"unidad" },
+    { id:13, cat:"ACCESORIOS",  nombre:"Rejillas Banderita",                 precio:3500,  unidad:"unidad" },
+    { id:14, cat:"ACCESORIOS",  nombre:"Paño Multiuso Costero",              precio:1500,  unidad:"unidad" },
+    { id:15, cat:"ACCESORIOS",  nombre:"Trapo Fibran",                       precio:1400,  unidad:"unidad", img:"img/trapo-fibran.jpg" },
+    { id:17, cat:"ACCESORIOS",  nombre:"Escobillón Gondomax",                precio:6000,  unidad:"unidad" },
+    { id:18, cat:"ACCESORIOS",  nombre:"Secador Negro x 40cm",               precio:5500,  unidad:"unidad", img:"img/secador-negro.png" },
+    { id:19, cat:"ACCESORIOS",  nombre:"Secador Negro x 50cm",               precio:6500,  unidad:"unidad", img:"img/secador-negro.png" },
+    { id:20, cat:"ACCESORIOS",  nombre:"Guantes Make",                       precio:4500,  unidad:"par" },
+    { id:21, cat:"ACCESORIOS",  nombre:"Esponja",                            precio:1500,  unidad:"unidad", img:"img/esponja.png" },
+    { id:22, cat:"LÍQUIDOS",    nombre:"Limpiavidrios Concent. ECO (x5 L)",  precio:3000,  unidad:"bidón",  img:"img/limpiavidrios-eco.png" },
+    { id:23, cat:"LÍQUIDOS",    nombre:"Lavandina Concent. Multimax (x5 L)", precio:2000,  unidad:"bidón",  img:"img/multimax-limpiador.png" },
+    { id:24, cat:"LÍQUIDOS",    nombre:"Desinfectante Piso Concent. (x5 L)", precio:2000,  unidad:"bidón",  img:"img/desinfectante-multimax.png" },
+    { id:10, cat:"PROMO",       nombre:"Promo Pack (Hig + Toalla + Bobina)", precio:40000, unidad:"pack",   img:"img/promo-pack-real.png" },
+  ];
+
+  // Leer datos del admin (mismas keys que pedidos.html)
+  const customPrecios = JSON.parse(localStorage.getItem('lp_precios') || '{}');
+  const addedProducts = JSON.parse(localStorage.getItem('lp_productos_custom') || '[]');
+  const deletedIds    = JSON.parse(localStorage.getItem('lp_productos_deleted') || '[]');
+  const sinStock      = JSON.parse(localStorage.getItem('lp_sinstock') || '[]');
+
+  // Combinar: base + agregados - eliminados, aplicar precios custom
+  const allProducts = [...PRODUCTOS_BASE, ...addedProducts]
+    .filter(p => !deletedIds.includes(p.id))
+    .map(p => ({ ...p, precio: customPrecios[p.id] !== undefined ? customPrecios[p.id] : p.precio }));
+
+  // Agrupar por categoría para mostrar cards representativas
+  const CAT_META = {
+    'PAPEL':      { label: 'Papel',      emoji: '🧻', desc: 'Toallas, higiénico, servilletas y rollos de calidad institucional.' },
+    'BOLSAS':     { label: 'Bolsas',     emoji: '🗑️', desc: 'Residuos y compactación, todos los tamaños. Resistentes y económicas.' },
+    'ACCESORIOS': { label: 'Accesorios', emoji: '🧹', desc: 'Escobillones, secadores, guantes, paños, esponjas y todo lo que necesitás.' },
+    'LÍQUIDOS':   { label: 'Limpieza',   emoji: '🧴', desc: 'Lavandina, desinfectante de pisos, limpiadores multiuso profesionales.' },
+    'PROMO':      { label: 'Promos',     emoji: '🎁', desc: 'Packs combinados con descuento. Ahorrá comprando en conjunto.' },
+  };
+
+  const grid = document.getElementById('catalogGrid');
+  if (!grid) return;
+
+  // Agrupar productos por categoría
+  const cats = {};
+  allProducts.forEach(p => {
+    if (!cats[p.cat]) cats[p.cat] = [];
+    cats[p.cat].push(p);
+  });
+
+  // Orden de categorías
+  const catOrder = ['PAPEL', 'LÍQUIDOS', 'BOLSAS', 'ACCESORIOS', 'PROMO'];
+  const fmt = n => n.toLocaleString('es-AR');
+
+  catOrder.forEach(cat => {
+    const prods = cats[cat];
+    if (!prods || prods.length === 0) return;
+
+    const meta = CAT_META[cat] || { label: cat, emoji: '📦', desc: '' };
+    // Encontrar el precio más bajo de la categoría
+    const available = prods.filter(p => !sinStock.includes(p.id));
+    if (available.length === 0) return; // No mostrar categoría si todo sin stock
+
+    const minPrice = Math.min(...available.map(p => p.precio));
+    // Usar la imagen del primer producto que tenga imagen
+    const imgProd = available.find(p => p.img);
+    const imgSrc = imgProd ? imgProd.img : '';
+    const unit = available[0].unidad;
+
+    const card = document.createElement('div');
+    card.className = 'catalog-card fade-up';
+    card.innerHTML = `
+      <div class="catalog-img">${imgSrc
+        ? `<img src="${imgSrc}" alt="${meta.label}" loading="lazy">`
+        : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f0f4f8;">${meta.emoji}</div>`
+      }</div>
+      <div class="catalog-body">
+        <div class="catalog-cat">${meta.label}</div>
+        <h3>${meta.label === 'Limpieza' ? 'Desinfectantes y Limpiadores' : meta.label === 'Promos' ? 'Promo Packs' : meta.label}</h3>
+        <p>${meta.desc}</p>
+        <span class="catalog-price">Desde $${fmt(minPrice)}</span> <span class="catalog-unit">/ ${unit}</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+})();
+
 // Scroll animations
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
