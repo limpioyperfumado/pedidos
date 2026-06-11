@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — Limpio y Perfumado</title>
+  <meta name="description" content="Catálogo completo de artículos de limpieza profesional. Toallas, papel higiénico, desinfectantes, bolsas y más.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://limpioyperfumado.github.io/pedidos/catalogo.html">
+  <meta property="og:title" content="Catálogo — Limpio y Perfumado">
+  <meta property="og:description" content="Catálogo completo de artículos de limpieza profesional. Pedí online y recibí en Salta.">
+  <meta property="og:image" content="https://limpioyperfumado.github.io/pedidos/img/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="Limpio y Perfumado">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --blue-500: #3b82f6; --blue-600: #2563eb; --blue-700: #1d4ed8;
+      --navy: #0a1628; --navy-light: #112240;
+      --sky-100: #e0f2fe; --sky-400: #38bdf8; --sky-500: #0ea5e9;
+      --green-500: #22c55e; --green-50: #f0fdf4;
+      --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1; --gray-400: #94a3b8; --gray-500: #64748b;
+      --gray-600: #475569; --gray-700: #334155; --gray-800: #1e293b; --gray-900: #0f172a;
+      --radius: 12px; --radius-lg: 16px; --radius-xl: 20px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gray-50); color: var(--gray-800);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,22,40,.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: 0 24px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--sky-400), var(--blue-600));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; color: #fff; font-size: 1.3rem;
+    }
+    .nav-name { font-weight: 700; font-size: 1rem; color: #fff; letter-spacing: -.3px; }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      padding: 8px 16px; border-radius: 8px; font-size: .82rem;
+      font-weight: 600; text-decoration: none; transition: all .2s;
+    }
+    .nav-link-ghost { color: rgba(255,255,255,.7); }
+    .nav-link-ghost:hover { color: #fff; background: rgba(255,255,255,.08); }
+    .nav-link-primary {
+      background: var(--sky-500); color: #fff;
+    }
+    .nav-link-primary:hover { background: var(--blue-600); }
+
+    /* ── HEADER ── */
+    .cat-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a365d 100%);
+      padding: 56px 24px 48px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cat-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(56,189,248,.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(59,130,246,.08) 0%, transparent 50%);
+    }
+    .cat-header-inner { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+    .cat-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(56,189,248,.12); color: var(--sky-400);
+      padding: 6px 14px; border-radius: 20px; font-size: .78rem;
+      font-weight: 600; margin-bottom: 16px; border: 1px solid rgba(56,189,248,.15);
+    }
+    .cat-header h1 {
+      font-size: 2.2rem; font-weight: 800; color: #fff;
+      letter-spacing: -.5px; line-height: 1.2; margin-bottom: 10px;
+    }
+    .cat-header p { color: rgba(255,255,255,.6); font-size: .95rem; line-height: 1.5; }
+    .cat-date {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,.4); font-size: .78rem; margin-top: 14px;
+    }
+
+    /* ── ACTION BAR ── */
+    .action-bar {
+      max-width: 1100px; margin: -24px auto 0; padding: 0 20px; position: relative; z-index: 10;
+    }
+    .action-bar-inner {
+      background: #fff; border-radius: var(--radius-lg);
+      box-shadow: 0 4px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      flex-wrap: wrap;
+    }
+    .action-info {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--gray-500); font-size: .82rem;
+    }
+    .action-info i { font-size: 1.1rem; color: var(--sky-500); }
+    .action-info strong { color: var(--gray-800); }
+    .action-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; border-radius: 10px; font-size: .82rem;
+      font-weight: 600; text-decoration: none; border: none;
+      cursor: pointer; transition: all .2s; font-family: inherit;
+    }
+    .btn-download {
+      background: linear-gradient(135deg, var(--sky-500), var(--blue-600));
+      color: #fff; box-shadow: 0 2px 8px rgba(14,165,233,.25);
+    }
+    .btn-download:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(14,165,233,.35); }
+    .btn-download:active { transform: translateY(0); }
+    .btn-download.loading { opacity: .7; pointer-events: none; }
+    .btn-whatsapp {
+      background: #25d366; color: #fff;
+      box-shadow: 0 2px 8px rgba(37,211,102,.25);
+    }
+    .btn-whatsapp:hover { background: #1fb855; transform: translateY(-1px); }
+    .btn-pedir {
+      background: var(--gray-100); color: var(--gray-700);
+      border: 1px solid var(--gray-200);
+    }
+    .btn-pedir:hover { background: var(--gray-200); }
+
+    /* ── FILTER TABS ── */
+    .filter-bar {
+      max-width: 1100px; margin: 24px auto 0; padding: 0 20px;
+    }
+    .filter-tabs {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 8px 16px; border-radius: 20px; font-size: .8rem;
+      font-weight: 600; border: 1px solid var(--gray-200);
+      background: #fff; color: var(--gray-500); cursor: pointer;
+      transition: all .2s; font-family: inherit;
+    }
+    .filter-tab:hover { border-color: var(--sky-400); color: var(--sky-500); }
+    .filter-tab.active {
+      background: var(--navy); color: #fff;
+      border-color: var(--navy); box-shadow: 0 2px 8px rgba(10,22,40,.15);
+    }
+
+    /* ── CATALOG GRID ── */
+    .catalog-section {
+      max-width: 1100px; margin: 28px auto 0; padding: 0 20px 60px;
+    }
+    .cat-group-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--gray-800);
+      margin: 32px 0 16px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--gray-100);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .cat-group-title .cat-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+    }
+    .cat-group-title .cat-count {
+      font-size: .72rem; font-weight: 500; color: var(--gray-400);
+      margin-left: auto;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .prod-card {
+      background: #fff; border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      overflow: hidden; transition: all .25s;
+      display: flex; flex-direction: column;
+    }
+    .prod-card:hover {
+      border-color: var(--sky-400);
+      box-shadow: 0 8px 30px rgba(0,0,0,.07);
+      transform: translateY(-3px);
+    }
+    .prod-card-img {
+      width: 100%; aspect-ratio: 4/3; object-fit: contain;
+      background: #f8fafc; padding: 12px; border-bottom: 1px solid var(--gray-100);
+    }
+    .prod-card-emoji {
+      width: 100%; aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; background: linear-gradient(135deg, var(--gray-50), var(--sky-100));
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .prod-card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .prod-card-cat {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .5px; color: var(--sky-500); margin-bottom: 6px;
+    }
+    .prod-card-name {
+      font-size: .88rem; font-weight: 600; color: var(--gray-800);
+      line-height: 1.3; margin-bottom: 10px; flex: 1;
+    }
+    .prod-card-footer {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-top: auto;
+    }
+    .prod-card-price {
+      font-size: 1.15rem; font-weight: 800; color: var(--navy);
+    }
+    .prod-card-unit {
+      font-size: .72rem; color: var(--gray-400); font-weight: 500;
+    }
+    .prod-card-stock {
+      font-size: .68rem; font-weight: 600; padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .stock-ok { background: var(--green-50); color: var(--green-500); }
+    .stock-out { background: #fef2f2; color: #ef4444; }
+
+    /* ── FOOTER ── */
+    .cat-footer {
+      background: var(--navy); padding: 32px 24px; text-align: center;
+    }
+    .cat-footer-inner { max-width: 600px; margin: 0 auto; }
+    .cat-footer-brand {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 12px;
+    }
+    .cat-footer-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--sky-400), var(--blue-600));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; color: #fff; font-size: 1rem;
+    }
+    .cat-footer-name { font-weight: 700; font-size: .9rem; color: #fff; }
+    .cat-footer p { color: rgba(255,255,255,.45); font-size: .78rem; line-height: 1.5; }
+    .cat-footer-contact {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-top: 14px; flex-wrap: wrap;
+    }
+    .cat-footer-contact a {
+      color: var(--sky-400); text-decoration: none; font-size: .8rem;
+      font-weight: 600; display: flex; align-items: center; gap: 5px;
+    }
+    .cat-footer-contact a:hover { color: #fff; }
+
+    /* ── DOWNLOAD OVERLAY ── */
+    .dl-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10,22,40,.7); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .dl-overlay.active { display: flex; }
+    .dl-box {
+      background: #fff; border-radius: var(--radius-xl);
+      padding: 40px; text-align: center; max-width: 420px; width: 90%;
+      box-shadow: 0 24px 60px rgba(0,0,0,.2);
+    }
+    .dl-box i { font-size: 2.5rem; color: var(--sky-500); margin-bottom: 12px; }
+    .dl-box h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .dl-box p { font-size: .85rem; color: var(--gray-500); margin-bottom: 20px; }
+    .dl-spinner {
+      width: 40px; height: 40px; border: 3px solid var(--gray-200);
+      border-top-color: var(--sky-500); border-radius: 50%;
+      animation: spin .8s linear infinite; margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .cat-header { padding: 40px 16px 36px; }
+      .cat-header h1 { font-size: 1.6rem; }
+      .action-bar-inner { flex-direction: column; align-items: stretch; text-align: center; }
+      .action-buttons { justify-content: center; }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+      .prod-card-body { padding: 12px; }
+      .prod-card-name { font-size: .8rem; }
+      .prod-card-price { font-size: 1rem; }
+      .nav-links a span { display: none; }
+    }
+    @media (max-width: 400px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .prod-card-img { padding: 8px; }
+    }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: all .4s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── PRINT / DOWNLOAD STYLES ── */
+    @media print {
+      .nav, .action-bar, .filter-bar, .btn { display: none !important; }
+      .prod-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">+</div>
+    <span class="nav-name">LIMPIO Y PERFUMADO</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link-ghost"><i class="bi bi-house"></i> <span>Inicio</span></a>
+    <a href="pedidos.html" class="nav-link-primary"><i class="bi bi-bag-check"></i> <span>Pedir</span></a>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="cat-header">
+  <div class="cat-header-inner">
+    <div class="cat-badge"><i class="bi bi-grid-3x3-gap-fill"></i> Catálogo completo</div>
+    <h1>Nuestros Productos</h1>
+    <p>Todos nuestros artículos de limpieza profesional en un solo lugar. Precios actualizados y stock en tiempo real.</p>
+    <div class="cat-date"><i class="bi bi-calendar3"></i> <span id="catDate"></span></div>
+  </div>
+</header>
+
+<!-- ACTION BAR -->
+<div class="action-bar">
+  <div class="action-bar-inner">
+    <div class="action-info">
+      <i class="bi bi-box-seam"></i>
+      <span><strong id="totalProds">0</strong> productos disponibles</span>
+    </div>
+    <div class="action-buttons">
+      <button class="btn btn-download" id="btnDownload" onclick="downloadCatalog()">
+        <i class="bi bi-download"></i> Descargar catálogo
+      </button>
+      <a href="https://wa.me/5493874639259?text=Hola!%20Vi%20el%20catálogo%20y%20quiero%20consultar" target="_blank" class="btn btn-whatsapp">
+        <i class="bi bi-whatsapp"></i> Consultar
+      </a>
+      <a href="pedidos.html" class="btn btn-pedir">
+        <i class="bi bi-bag-check"></i> Hacer pedido
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <div class="filter-tabs" id="filterTabs"></div>
+</div>
+
+<!-- CATALOG CONTENT -->
+<div class="catalog-section" id="catalogContent"></div>
+
+<!-- DOWNLOAD OVERLAY -->
+<div class="dl-overlay" id="dlOverlay">
+  <div class="dl-box">
+    <div class="dl-spinner"></div>
+    <h3>Generando catálogo...</h3>
+    <p>Estamos preparando tu imagen para descargar. Esto puede tardar unos segundos.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="cat-footer">
+  <div class="cat-footer-inner">
+    <div class="cat-footer-brand">
+      <div class="cat-footer-icon">+</div>
+      <span class="cat-footer-name">LIMPIO Y PERFUMADO</span>
+    </div>
+    <p>Artículos de limpieza profesional · Salta, Argentina</p>
+    <div class="cat-footer-contact">
+      <a href="https://wa.me/5493874639259" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+      <a href="pedidos.html"><i class="bi bi-bag-check"></i> Hacer pedido</a>
+      <a href="index.html"><i class="bi bi-house"></i> Inicio</a>
+    </div>
+    <p style="margin-top: 16px; font-size:.72rem;">&copy; 2026 Limpio y Perfumado. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+// ══ DATOS — misma base que pedidos.html ══
+const PRODUCTOS_BASE = [
+  { id:1,  cat:"PAPEL",       nombre:"Caja Toallas Intercaladas Blancas", precio:18000, unidad:"caja",   img:"img/toallas-caja-real.jpg" },
+  { id:2,  cat:"PAPEL",       nombre:"Caja Toallas Intercaladas Beige",   precio:16500, unidad:"caja",   img:"img/toallas-caja-real.jpg" },
+  { id:3,  cat:"PAPEL",       nombre:"Papel Higiénico 300M x 8U",         precio:14500, unidad:"pack",   img:"img/higienico-rollos.png" },
+  { id:4,  cat:"PAPEL",       nombre:"Toalla Rollo 4x200M Blanca Cal A",  precio:16500, unidad:"unidad", img:"img/rollo-toalla.png" },
+  { id:9,  cat:"PAPEL",       nombre:"Toalla Rollo 4x200M Blanca Cal B",  precio:16500, unidad:"unidad", img:"img/rollo-toalla.png" },
+  { id:11, cat:"PAPEL",       nombre:"Rollo Servilletas 4x200M Blanca",   precio:16000, unidad:"unidad", img:"img/servilletas-rollo.png" },
+  { id:5,  cat:"PAPEL",       nombre:"Bolsón Papel Higiénico 50m x 24U",  precio:15500, unidad:"bolsón", img:"img/higienico-rollos.png" },
+  { id:6,  cat:"BOLSAS",      nombre:"Bolsa Residuo 45x60x30 (x30 u)",    precio:1500,  unidad:"pack",   img:"img/bolsa-residuos.png" },
+  { id:7,  cat:"BOLSAS",      nombre:"Bolsa Compact. 60x90 (x10 u)",      precio:2000,  unidad:"pack",   img:"img/bolsa-residuos.png" },
+  { id:8,  cat:"BOLSAS",      nombre:"Bolsa Compact. 90x110 (x10 u)",     precio:2500,  unidad:"pack",   img:"img/bolsa-residuos.png" },
+  { id:12, cat:"ACCESORIOS",  nombre:"Rejillas Doble",                     precio:1500,  unidad:"unidad" },
+  { id:13, cat:"ACCESORIOS",  nombre:"Rejillas Banderita",                 precio:3500,  unidad:"unidad" },
+  { id:14, cat:"ACCESORIOS",  nombre:"Paño Multiuso Costero",              precio:1500,  unidad:"unidad" },
+  { id:15, cat:"ACCESORIOS",  nombre:"Trapo Fibran",                       precio:1400,  unidad:"unidad", img:"img/trapo-fibran.jpg" },
+  { id:17, cat:"ACCESORIOS",  nombre:"Escobillón Gondomax",                precio:6000,  unidad:"unidad" },
+  { id:18, cat:"ACCESORIOS",  nombre:"Secador Negro x 40cm",               precio:5500,  unidad:"unidad", img:"img/secador-negro.png" },
+  { id:19, cat:"ACCESORIOS",  nombre:"Secador Negro x 50cm",               precio:6500,  unidad:"unidad", img:"img/secador-negro.png" },
+  { id:20, cat:"ACCESORIOS",  nombre:"Guantes Make",                       precio:4500,  unidad:"par" },
+  { id:21, cat:"ACCESORIOS",  nombre:"Esponja",                            precio:1500,  unidad:"unidad", img:"img/esponja.png" },
+  { id:22, cat:"LÍQUIDOS",    nombre:"Limpiavidrios Concent. ECO (x5 L)",  precio:3000,  unidad:"bidón",  img:"img/limpiavidrios-eco.png" },
+  { id:23, cat:"LÍQUIDOS",    nombre:"Lavandina Concent. Multimax (x5 L)", precio:2000,  unidad:"bidón",  img:"img/multimax-limpiador.png" },
+  { id:24, cat:"LÍQUIDOS",    nombre:"Desinfectante Piso Concent. (x5 L)", precio:2000,  unidad:"bidón",  img:"img/desinfectante-multimax.png" },
+  { id:10, cat:"PROMO",       nombre:"Promo Pack (Hig + Toalla + Bobina)", precio:40000, unidad:"pack",   img:"img/promo-pack-real.png" },
+];
+
+const CAT_META = {
+  'PAPEL':      { label:'Papel',               icon:'bi-file-earmark', emoji:'🧻', color:'#3b82f6', bg:'#eff6ff' },
+  'BOLSAS':     { label:'Bolsas',              icon:'bi-bag',          emoji:'🗑️', color:'#64748b', bg:'#f1f5f9' },
+  'ACCESORIOS': { label:'Accesorios',          icon:'bi-tools',        emoji:'🧹', color:'#f59e0b', bg:'#fffbeb' },
+  'LÍQUIDOS':   { label:'Líquidos y Limpieza', icon:'bi-droplet-fill', emoji:'🧴', color:'#10b981', bg:'#ecfdf5' },
+  'PROMO':      { label:'Promociones',         icon:'bi-gift-fill',    emoji:'🎁', color:'#ef4444', bg:'#fef2f2' },
+};
+
+const CAT_ORDER = ['PAPEL', 'LÍQUIDOS', 'BOLSAS', 'ACCESORIOS', 'PROMO'];
+
+// Load from localStorage (synced with admin)
+function loadProducts() {
+  const customPrecios = JSON.parse(localStorage.getItem('lp_precios') || '{}');
+  const added = JSON.parse(localStorage.getItem('lp_productos_custom') || '[]');
+  const deleted = JSON.parse(localStorage.getItem('lp_productos_deleted') || '[]');
+  const sinStock = JSON.parse(localStorage.getItem('lp_sinstock') || '[]');
+  const all = [...PRODUCTOS_BASE, ...added]
+    .filter(p => !deleted.includes(p.id))
+    .map(p => ({
+      ...p,
+      precio: customPrecios[p.id] !== undefined ? customPrecios[p.id] : p.precio,
+      disponible: !sinStock.includes(p.id)
+    }));
+  return all;
+}
+
+const fmt = n => n.toLocaleString('es-AR');
+let currentFilter = 'TODOS';
+
+function renderCatalog(filter) {
+  currentFilter = filter;
+  const products = loadProducts();
+  const container = document.getElementById('catalogContent');
+  container.innerHTML = '';
+
+  // Update total count
+  const available = products.filter(p => p.disponible);
+  document.getElementById('totalProds').textContent = available.length;
+
+  // Group by category
+  const groups = {};
+  products.forEach(p => {
+    if (!groups[p.cat]) groups[p.cat] = [];
+    groups[p.cat].push(p);
+  });
+
+  CAT_ORDER.forEach(cat => {
+    if (filter !== 'TODOS' && filter !== cat) return;
+    const prods = groups[cat];
+    if (!prods || prods.length === 0) return;
+
+    const meta = CAT_META[cat] || { label: cat, icon: 'bi-box', emoji: '📦', color: '#64748b', bg: '#f1f5f9' };
+
+    // Category title
+    const title = document.createElement('div');
+    title.className = 'cat-group-title fade-in';
+    title.innerHTML = `
+      <div class="cat-icon" style="background:${meta.bg};color:${meta.color};">
+        <i class="bi ${meta.icon}"></i>
+      </div>
+      ${meta.label}
+      <span class="cat-count">${prods.length} producto${prods.length > 1 ? 's' : ''}</span>`;
+    container.appendChild(title);
+
+    // Products grid
+    const grid = document.createElement('div');
+    grid.className = 'products-grid';
+
+    prods.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'prod-card fade-in';
+      const imgHtml = p.img
+        ? `<img class="prod-card-img" src="${p.img}" alt="${p.nombre}" loading="lazy">`
+        : `<div class="prod-card-emoji">${meta.emoji}</div>`;
+
+      card.innerHTML = `
+        ${imgHtml}
+        <div class="prod-card-body">
+          <div class="prod-card-cat">${meta.label}</div>
+          <div class="prod-card-name">${p.nombre}</div>
+          <div class="prod-card-footer">
+            <div>
+              <div class="prod-card-price">$${fmt(p.precio)}</div>
+              <div class="prod-card-unit">por ${p.unidad}</div>
+            </div>
+            <span class="prod-card-stock ${p.disponible ? 'stock-ok' : 'stock-out'}">
+              ${p.disponible ? '● En stock' : '● Sin stock'}
+            </span>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+  });
+
+  // Trigger fade-in animations
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fade-in').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 40);
+    });
+  });
+
+  // Update filter tab active state
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.cat === filter);
+  });
+}
+
+// Build filter tabs
+function buildFilters() {
+  const tabs = document.getElementById('filterTabs');
+  const allTab = document.createElement('button');
+  allTab.className = 'filter-tab active';
+  allTab.dataset.cat = 'TODOS';
+  allTab.textContent = 'Todos';
+  allTab.onclick = () => renderCatalog('TODOS');
+  tabs.appendChild(allTab);
+
+  CAT_ORDER.forEach(cat => {
+    const meta = CAT_META[cat];
+    const tab = document.createElement('button');
+    tab.className = 'filter-tab';
+    tab.dataset.cat = cat;
+    tab.innerHTML = `${meta.emoji} ${meta.label}`;
+    tab.onclick = () => renderCatalog(cat);
+    tabs.appendChild(tab);
+  });
+}
+
+// Set date
+function setDate() {
+  const d = new Date();
+  const months = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  document.getElementById('catDate').textContent =
+    `Actualizado: ${d.getDate()} de ${months[d.getMonth()]} de ${d.getFullYear()}`;
+}
+
+// ══ DOWNLOAD AS IMAGE ══
+async function downloadCatalog() {
+  const overlay = document.getElementById('dlOverlay');
+  const btn = document.getElementById('btnDownload');
+  overlay.classList.add('active');
+  btn.classList.add('loading');
+  btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Generando...';
+
+  // Small delay to let overlay render
+  await new Promise(r => setTimeout(r, 100));
+
+  try {
+    // Create a clone of the catalog for rendering
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+      position: absolute; left: -9999px; top: 0;
+      width: 1080px; background: #fff; padding: 0;
+      font-family: 'Inter', sans-serif;
+    `;
+    document.body.appendChild(wrapper);
+
+    // Header for the downloadable image
+    const header = document.createElement('div');
+    header.style.cssText = `
+      background: linear-gradient(135deg, #0a1628, #1a365d);
+      padding: 48px 40px; text-align: center; color: #fff;
+    `;
+    header.innerHTML = `
+      <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#38bdf8,#2563eb);
+          display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.5rem;color:#fff;">+</div>
+        <span style="font-weight:800;font-size:1.6rem;letter-spacing:-.5px;">LIMPIO Y PERFUMADO</span>
+      </div>
+      <div style="font-size:1.1rem;color:rgba(255,255,255,.6);margin-top:8px;">
+        Catálogo de Productos · ${new Date().toLocaleDateString('es-AR', { month: 'long', year: 'numeric' })}
+      </div>
+    `;
+    wrapper.appendChild(header);
+
+    // Products content
+    const products = loadProducts().filter(p => p.disponible);
+    const groups = {};
+    products.forEach(p => { if (!groups[p.cat]) groups[p.cat] = []; groups[p.cat].push(p); });
+
+    const content = document.createElement('div');
+    content.style.cssText = 'padding: 32px 40px;';
+
+    CAT_ORDER.forEach(cat => {
+      const prods = groups[cat];
+      if (!prods || prods.length === 0) return;
+      const meta = CAT_META[cat];
+
+      const catTitle = document.createElement('div');
+      catTitle.style.cssText = `
+        font-size: 1rem; font-weight: 700; color: #1e293b;
+        padding: 12px 0 8px; margin-top: 16px;
+        border-bottom: 2px solid #f1f5f9;
+        display: flex; align-items: center; gap: 8px;
+      `;
+      catTitle.innerHTML = `<span style="font-size:1.2rem;">${meta.emoji}</span> ${meta.label}`;
+      content.appendChild(catTitle);
+
+      const grid = document.createElement('div');
+      grid.style.cssText = `
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 14px; margin-top: 14px;
+      `;
+
+      prods.forEach(p => {
+        const card = document.createElement('div');
+        card.style.cssText = `
+          background: #fff; border-radius: 12px;
+          border: 1px solid #e2e8f0; overflow: hidden;
+        `;
+        const imgHtml = p.img
+          ? `<img src="${p.img}" style="width:100%;aspect-ratio:4/3;object-fit:contain;background:#f8fafc;padding:10px;border-bottom:1px solid #f1f5f9;" crossorigin="anonymous">`
+          : `<div style="width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:#f0f4f8;border-bottom:1px solid #f1f5f9;">${meta.emoji}</div>`;
+        card.innerHTML = `
+          ${imgHtml}
+          <div style="padding:14px;">
+            <div style="font-size:.68rem;font-weight:700;color:#0ea5e9;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;">${meta.label}</div>
+            <div style="font-size:.82rem;font-weight:600;color:#1e293b;line-height:1.3;margin-bottom:8px;">${p.nombre}</div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+              <div>
+                <div style="font-size:1.1rem;font-weight:800;color:#0a1628;">$${fmt(p.precio)}</div>
+                <div style="font-size:.68rem;color:#94a3b8;">por ${p.unidad}</div>
+              </div>
+              <div style="font-size:.65rem;font-weight:600;color:#22c55e;background:#f0fdf4;padding:2px 6px;border-radius:4px;">En stock</div>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+      content.appendChild(grid);
+    });
+    wrapper.appendChild(content);
+
+    // Footer for download image
+    const footer = document.createElement('div');
+    footer.style.cssText = `
+      background: #0a1628; padding: 28px 40px; text-align: center;
+      color: rgba(255,255,255,.5); font-size: .8rem;
+    `;
+    footer.innerHTML = `
+      <div style="font-weight:700;color:#fff;font-size:.9rem;margin-bottom:6px;">
+        <span style="color:#38bdf8;">+</span> LIMPIO Y PERFUMADO
+      </div>
+      <div>Pedidos: limpioyperfumado.github.io/pedidos</div>
+      <div style="margin-top:4px;">WhatsApp: +54 9 387 463-9259</div>
+    `;
+    wrapper.appendChild(footer);
+
+    // Wait for images to load
+    const imgs = wrapper.querySelectorAll('img');
+    await Promise.all(Array.from(imgs).map(img =>
+      new Promise(resolve => {
+        if (img.complete) resolve();
+        else { img.onload = resolve; img.onerror = resolve; }
+      })
+    ));
+
+    // Render with html2canvas
+    const canvas = await html2canvas(wrapper, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      width: 1080,
+      windowWidth: 1080,
+    });
+
+    document.body.removeChild(wrapper);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `catalogo-limpio-y-perfumado-${new Date().toISOString().slice(0,10)}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+  } catch (err) {
+    console.error('Error generating catalog:', err);
+    alert('Hubo un error al generar la imagen. Podés usar la opción de captura de pantalla de tu dispositivo.');
+  }
+
+  overlay.classList.remove('active');
+  btn.classList.remove('loading');
+  btn.innerHTML = '<i class="bi bi-download"></i> Descargar catálogo';
+}
+
+// ══ INIT ══
+setDate();
+buildFilters();
+renderCatalog('TODOS');
+</script>
+</body>
+</html>
