@@ -705,17 +705,23 @@
     { ids:[21],     cat:'Accesorios', title:'Esponjas y Fibras',          img:'img/esponja.png?v=2',                 desc:'Esponjas de alta calidad para cocina, limpieza general y uso industrial.',               unit:'unidad' },
   ];
 
-  // Leer precios del admin
+  // Leer TODOS los datos del admin (mismas keys que pedidos.html)
   const customPrecios = JSON.parse(localStorage.getItem('lp_precios') || '{}');
-  const PRECIOS_BASE = {1:18000,2:16500,3:14500,5:15500,6:1500,7:2000,8:2500,18:5500,19:6500,21:1500,23:2000,24:2000};
+  const deletedIds    = JSON.parse(localStorage.getItem('lp_productos_deleted') || '[]');
+  const sinStock      = JSON.parse(localStorage.getItem('lp_sinstock') || '[]');
+  const PRECIOS_BASE = {1:18000,2:16500,3:14500,4:16500,5:15500,6:1500,7:2000,8:2500,9:16500,10:40000,11:16000,12:1500,13:3500,14:1500,15:1400,17:6000,18:5500,19:6500,20:4500,21:1500,22:3000,23:2000,24:2000};
   const fmt = n => n.toLocaleString('es-AR');
 
   const grid = document.getElementById('catalogGrid');
   if (!grid) return;
 
   SHOWCASE.forEach(item => {
+    // Filtrar ids eliminados y sin stock
+    const activeIds = item.ids.filter(id => !deletedIds.includes(id) && !sinStock.includes(id));
+    if (activeIds.length === 0) return; // No mostrar card si todos los productos fueron eliminados/sin stock
+
     // Calcular precio mínimo del grupo, respetando precios custom del admin
-    const prices = item.ids.map(id => customPrecios[id] !== undefined ? customPrecios[id] : (PRECIOS_BASE[id] || 0));
+    const prices = activeIds.map(id => customPrecios[id] !== undefined ? customPrecios[id] : (PRECIOS_BASE[id] || 0));
     const minPrice = Math.min(...prices);
 
     const card = document.createElement('div');
